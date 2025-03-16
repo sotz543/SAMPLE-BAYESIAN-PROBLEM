@@ -4,6 +4,7 @@ Created on Sun Mar 16 21:49:12 2025
 
 @author: JOSHUA
 """
+# Estimating number of defect products every product inspection
 
 import numpy as np
 import matplotlib.pyplot as plt
