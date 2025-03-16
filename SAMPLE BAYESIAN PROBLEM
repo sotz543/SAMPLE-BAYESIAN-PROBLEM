@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 16 21:49:12 2025
+
+@author: JOSHUA
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Observed data
+num_products = 1000  # Total number of products inspected
+num_defects = 50  # Number of defective products
+
+# Prior hyperparameters for the Beta distribution
+prior_alpha = 1  # Shape parameter assumes a uniform prior
+prior_beta = 1   # Shape parameter
+
+# Update the prior with the observed data to get the posterior parameters
+posterior_alpha = prior_alpha + num_defects
+posterior_beta = prior_beta + (num_products - num_defects)
+
+# Generate samples from the posterior Beta distribution
+posterior_samples = np.random.beta(posterior_alpha, posterior_beta, size=10000)
+
+# Plot the posterior distribution
+plt.figure(figsize=(10, 6))
+plt.hist(posterior_samples, bins=30, density=True, color='gold', edgecolor='black', alpha=0.7)
+plt.axvline(posterior_samples.mean(), color='red', linestyle='dashed', linewidth=2, label='Mean')
+plt.title('Posterior Distribution of Product Defect Rate')
+plt.xlabel('Defect Rate')
+plt.ylabel('Density')
+plt.xlim(0, 0.1)
+plt.legend()
+plt.show()
+
+# Calculate summary statistics
+mean_defect_rate = posterior_alpha / (posterior_alpha + posterior_beta)
+mode_defect_rate = (posterior_alpha - 1) / (posterior_alpha + posterior_beta - 2)
+
+# Display results
+print("Mean defect rate:", mean_defect_rate)
+print("Mode defect rate:", mode_defect_rate)
+
+
